@@ -1,0 +1,30 @@
+<h1 id="tableLabel">Employees</h1>
+
+<p>Sample Employees for exercise</p>
+
+<p *ngIf="!employees?.length"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="employees.length">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Vacation days</th>
+      <th>Days Worked</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let emp of employees">
+      <td>{{ emp.id }}</td>
+      <td>{{ emp.name }}</td>
+      <td>{{ emp.employeeType }}</td>
+      <td>{{ emp.vacationDays}}</td>
+      <td>{{ emp.daysWorked }}</td>
+      <td><button mat-raised-button >Work</button></td>
+      <td><button class="btn btn-primary">Take Vacation</button></td>
+    </tr>
+  </tbody>
+</table>
