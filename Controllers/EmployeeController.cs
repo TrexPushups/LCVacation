@@ -30,12 +30,13 @@ namespace LCVacation.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Employee> Get()
+        public Employee[] Get()
         {
             return _employeeList.Values.ToArray();
         }
 
-        [HttpPost] IEnumerable<Employee> Work(int days, int id)
+        [HttpPost] 
+        public Employee[] Work(int days, int id)
         {
             Employee updatingEmployee = _employeeList[id];
             ((IEmployee)updatingEmployee).Work(days);
@@ -44,10 +45,10 @@ namespace LCVacation.Controllers
         }
 
         [HttpPost]
-        IEnumerable<Employee> TakeVacation(int days, int id)
+        public Employee[] TakeVacation(int days, int id)
         {
             Employee updatingEmployee = _employeeList[id];
-            ((IEmployee)updatingEmployee).Work(days);
+            ((IEmployee)updatingEmployee).TakeVacation(days);
 
             return _employeeList.Values.ToArray();
         }

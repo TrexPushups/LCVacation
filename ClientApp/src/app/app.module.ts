@@ -27,9 +27,9 @@ import { EmployeeService } from './employee.service';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: 'fetch-data', component: HomeComponent, pathMatch: 'full' },
+      { path: 'fetch-data', component: HomeComponent },
       { path: 'counter', component: CounterComponent },
-      { path: '', component: FetchDataComponent },
+      { path: '', component: FetchDataComponent, pathMatch: 'full' },
     ])
   ],
   providers: [],

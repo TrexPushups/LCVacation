@@ -16,12 +16,12 @@
         }
 
 
-        void IEmployee.TakeVacation(float days)
+        public void TakeVacation(float days)
         {
             VacationDays -= days;
         }
 
-        void IEmployee.Work(int days)
+        public void Work(int days)
         {
             DaysWorked += days;
             VacationDays += MaxVacationDays * days / max_workdays;
