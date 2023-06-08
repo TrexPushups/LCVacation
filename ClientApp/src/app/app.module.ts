@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EmployeeService } from './employee.service';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent
+    FetchDataComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

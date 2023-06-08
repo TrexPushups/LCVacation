@@ -2,6 +2,34 @@
 
 <p>Sample Employees for exercise</p>
 
+<!-- Modal -->
+<div class="modal fade" id="WorkModal" tabindex="-1" aria-labelledby="WorkModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="WorkModalLabel">Work Entry Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="WorkForm" (ngSubmit)="onSubmitWork()">
+          <div class="mb-3">
+            <label for="DaysWorked" class="form-label">Days Worked</label>
+            <input type="number" formControlName="DaysWorked" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.DaysWorked.errors }" id="DaysWorked">
+            <div *ngIf="submitted && f.DaysWorked.errors" class="invalid-feedback">
+              <div *ngIf="f.DaysWorked.errors.required">Days Worked is required</div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <p *ngIf="!employees?.length"><em>Loading...</em></p>
 
 
@@ -24,8 +52,8 @@
       <td>{{ emp.employeeType }}</td>
       <td>{{ emp.vacationDays}}</td>
       <td>{{ emp.daysWorked }}</td>
-      <td><button mat-raised-button data-bs-toggle="modal" data-bs-target="#WorkModal">Work</button></td>
-      <td><button class="btn btn-primary">Take Vacation</button></td>
+      <td><button mat-raised-button data-bs-toggle="modal" data-bs-target="#WorkModal"  (click)="prepDialog(emp.id)" >Work</button></td>
+      <td><button  mat-raised-button (click)="prepDialog(emp.id)">Take Vacation</button></td>
     </tr>
   </tbody>
 </table>
