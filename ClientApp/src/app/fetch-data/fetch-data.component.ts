@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-fetch-data',
@@ -7,15 +8,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FetchDataComponent {
   public employees: Employee[] = [];
-  closeResult: string = '';
-  title = 'app';
+  //Form Validables
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private formBuilder: FormBuilder, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     http.get<Employee[]>(baseUrl + 'Employee').subscribe(result => {
       this.employees = result;
     }, error => console.error(error));
   }
-    
+
+
   public work(id:number) {
 
   }
@@ -23,6 +24,7 @@ export class FetchDataComponent {
   public takeVacation(id: number) {
 
   }
+
 }
 
 interface Employee {

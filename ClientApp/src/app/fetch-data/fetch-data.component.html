@@ -4,6 +4,7 @@
 
 <p *ngIf="!employees?.length"><em>Loading...</em></p>
 
+
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="employees.length">
   <thead>
     <tr>
@@ -23,7 +24,7 @@
       <td>{{ emp.employeeType }}</td>
       <td>{{ emp.vacationDays}}</td>
       <td>{{ emp.daysWorked }}</td>
-      <td><button mat-raised-button >Work</button></td>
+      <td><button mat-raised-button data-bs-toggle="modal" data-bs-target="#WorkModal">Work</button></td>
       <td><button class="btn btn-primary">Take Vacation</button></td>
     </tr>
   </tbody>
