@@ -36,7 +36,7 @@ namespace LCVacation
         public Employee Work(int days)
         {
             ErrorMesssage = "";
-            if (DaysWorked + days <= MaxWorkDays)
+            if (DaysWorked + days <= max_daysWorked)
             {
                 DaysWorked += days;
                 VacationDays += VacationLimit * days / max_daysWorked;

@@ -11,7 +11,7 @@ namespace LCVacation.Controllers
         private readonly ILogger<EmployeeController> _logger;
         private static readonly Dictionary<int, Employee> _employeeList =  new Dictionary<int, Employee>()
             {
-                {1, new HourlyEmployee(){Name = "Julie Kitchen", DaysWorked = 34, VacationDays = 0f, Id = 1} },
+                {1, new HourlyEmployee(){Name = "Julie Kitchen", DaysWorked = 0, VacationDays = 0f, Id = 1} },
                 {2, new HourlyEmployee() {Name = "Edgar Wright", DaysWorked = 124, VacationDays = 1.3f, Id = 2} },
                 {3, new HourlyEmployee() { Name = "Sam Whitworth", DaysWorked = 230, VacationDays = 3.4f, Id = 3 } },
                 {4, new HourlyEmployee() {Name = "Alan Grant", DaysWorked = 90, VacationDays = 1.0f, Id = 4} },
