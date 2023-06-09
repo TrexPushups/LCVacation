@@ -5,6 +5,11 @@ import { catchError, lastValueFrom, map, Observable, of } from "rxjs";
 import { __values } from "tslib";
 import { Employee } from "./Employee";
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'appplication/json'
+  }) 
+}
 
 export interface EmployeesResponse {
   data: Employee[];
@@ -16,10 +21,7 @@ export class EmployeeService {
   employees: Employee[] = [];
   http: HttpClient;
   baseUrl: string;
-  httpOptions = {
-     headers: new HttpHeaders({'ContentType': 'application/json'})
-  };
-
+ 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
     this.baseUrl = baseUrl;
@@ -31,11 +33,11 @@ export class EmployeeService {
   }
 
   getEmployees(): Observable<Employee[]> {
-    const apiURL = this.baseUrl + 'Employee';
+    const apiURL = this.baseUrl + 'Employee/getEmployees';
    
     return this.http.get<Employee[]>(apiURL).pipe(
-       map((res: Employee[]) => res)
     ); 
+       map((res: Employee[]) => res)
   }
 
   //refreshEmployees(): Observable<Employee[]> {
@@ -45,18 +47,26 @@ export class EmployeeService {
   //}
 
   work(days: number, id: number): Observable<Employee[]> {
-    const apiURL = this.baseUrl + 'Employee/Work/';
-    console.log(apiURL);
-    return this.http.post<Employee[]>(apiURL, {days: days, id: id })
-      .pipe(
-        map((res: Employee[]) => res)
-      );
+    const apiURL = this.baseUrl + 'Employee/Work';
+    
+    const formData = new FormData();
+    formData.append("id", id.toString())
+    formData.append("days", days.toString());
+    
+    return this.http.post<Employee[]>(apiURL, formData).pipe(
+      map((res: Employee[]) => res)
+    );
   }
 
   vacation(days: number, id: number): Observable<Employee[]> {
-    const apiURL = this.baseUrl + + 'Employee' + '\\TakeVacation'
-    return this.http.post<Employee[]>(apiURL, { days: days, id: id })
-      .pipe(
+    const apiURL = this.baseUrl + 'Employee/TakeVacation';
+
+    const formData = new FormData();
+    formData.append("id", id.toString())
+    formData.append("days", days.toString());
+
+
+    return this.http.post<Employee[]>(apiURL, formData).pipe(
         map((res: Employee[]) => res)
       );
   }

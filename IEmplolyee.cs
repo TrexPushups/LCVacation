@@ -2,7 +2,7 @@
 {
     public interface IEmployee
     {
-        public void Work(int days);
-        public void TakeVacation(float days);
+        public Employee Work(int days);
+        public Employee TakeVacation(float days);
     }
 }

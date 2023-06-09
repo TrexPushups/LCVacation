@@ -16,15 +16,17 @@
         }
 
 
-        public void TakeVacation(float days)
+        public Employee TakeVacation(float days)
         {
             VacationDays -= days;
+            return this;
         }
 
-        public void Work(int days)
+        public Employee Work(int days)
         {
             DaysWorked += days;
             VacationDays += MaxVacationDays * days / max_workdays;
+            return this;
         }
     }
 }

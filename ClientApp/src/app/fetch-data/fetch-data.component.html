@@ -11,7 +11,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="WorkForm" (ngSubmit)="onSubmitWork()">
+        <form [formGroup]="Work" (ngSubmit)="onSubmitWork()">
           <div class="mb-3">
             <label for="DaysWorked" class="form-label">Days Worked</label>
             <input type="number" formControlName="DaysWorked" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.DaysWorked.errors }" id="DaysWorked">
@@ -20,7 +20,35 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="TakeVacationModal" tabindex="-1" aria-labelledby="TakeVacationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="TakeVacationModalLabel">Vacation Day Entry Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="Vacation" (ngSubmit)="onTakeVacation()">
+          <div class="mb-3">
+            <label for="VacationDays" class="form-label">Vacation Days to use</label>
+            <input type="number" formControlName="VacationDays" class="form-control" [ngClass]="{ 'is-invalid': submitted && v.VacationDays.errors }" id="VacationDays">
+            <div *ngIf="submitted && v.VacationDays.errors" class="invalid-feedback">
+              <div *ngIf="v.VacationDays.errors.required"> VacationDays is required</div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
         </form>
       </div>
       <div class="modal-footer">
@@ -52,8 +80,8 @@
       <td>{{ emp.employeeType }}</td>
       <td>{{ emp.vacationDays}}</td>
       <td>{{ emp.daysWorked }}</td>
-      <td><button mat-raised-button data-bs-toggle="modal" data-bs-target="#WorkModal"  (click)="prepDialog(emp.id)" >Work</button></td>
-      <td><button  mat-raised-button (click)="prepDialog(emp.id)">Take Vacation</button></td>
+      <td><button mat-raised-button data-bs-toggle="modal" data-bs-target="#WorkModal" (click)="prepDialog(emp.id)">Work</button></td>
+      <td><button mat-raised-button data-bs-toggle="modal" data-bs-target="#TakeVacationModal"  (click)="prepDialog(emp.id)">Take Vacation</button></td>
     </tr>
   </tbody>
 </table>

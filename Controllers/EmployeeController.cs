@@ -1,10 +1,11 @@
 ﻿using LCVacation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LCVacation.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class EmployeeController : ControllerBase
     {
         private readonly ILogger<EmployeeController> _logger;
@@ -30,25 +31,35 @@ namespace LCVacation.Controllers
         }
 
         [HttpGet]
-        public Employee[] Get()
+        public Employee[] GetEmployees()
         {
-            return _employeeList.Values.ToArray();
-        }
-
-        [HttpPost] 
-        public Employee[] Work(int days, int id)
-        {
-            Employee updatingEmployee = _employeeList[id];
-            ((IEmployee)updatingEmployee).Work(days);
-
             return _employeeList.Values.ToArray();
         }
 
         [HttpPost]
-        public Employee[] TakeVacation(int days, int id)
+        public Employee[] Work([FromForm] EmployeeRequest request)
         {
-            Employee updatingEmployee = _employeeList[id];
-            ((IEmployee)updatingEmployee).TakeVacation(days);
+            var id = request.Id;
+            var days = request.Days;
+            Employee updatingEmployee = null;
+            if (_employeeList.TryGetValue(id, out updatingEmployee))
+            { 
+                _employeeList[id] = ((IEmployee)updatingEmployee).Work(days);
+            }
+            
+            return _employeeList.Values.ToArray();
+        }
+
+        [HttpPost()]
+        public Employee[] TakeVacation([FromForm] EmployeeRequest request)
+        {
+            var id = request.Id;
+            var days = request.Days;
+            Employee updatingEmployee = null;
+            if (_employeeList.TryGetValue(id, out updatingEmployee))
+            {
+                _employeeList[id] = ((IEmployee)updatingEmployee).TakeVacation(days);
+            }
 
             return _employeeList.Values.ToArray();
         }
