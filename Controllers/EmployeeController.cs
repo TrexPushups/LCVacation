@@ -9,13 +9,7 @@ namespace LCVacation.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly ILogger<EmployeeController> _logger;
-        private readonly Dictionary<int, Employee> _employeeList;
-
-        public EmployeeController(ILogger<EmployeeController> logger)
-        {
-            _logger = logger;
-
-            _employeeList = new Dictionary<int, Employee>()
+        private static readonly Dictionary<int, Employee> _employeeList =  new Dictionary<int, Employee>()
             {
                 {1, new HourlyEmployee(){Name = "Julie Kitchen", DaysWorked = 34, VacationDays = 0f, Id = 1} },
                 {2, new HourlyEmployee() {Name = "Edgar Wright", DaysWorked = 124, VacationDays = 1.3f, Id = 2} },
@@ -28,6 +22,10 @@ namespace LCVacation.Controllers
                 {9, new HourlyEmployee() {Name = "President Business", DaysWorked=95, VacationDays=8.6f, Id = 9}},
                 {10, new HourlyEmployee() {Name = "Tim Cook", DaysWorked=111, VacationDays=5.7f, Id = 10}}
             };
+
+        public EmployeeController(ILogger<EmployeeController> logger)
+        {
+            _logger = logger;
         }
 
         [HttpGet]

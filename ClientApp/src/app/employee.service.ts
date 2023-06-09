@@ -40,12 +40,6 @@ export class EmployeeService {
        map((res: Employee[]) => res)
   }
 
-  //refreshEmployees(): Observable<Employee[]> {
-  //  return this.http.get<EmployeesResponse>('api/refresh').pipe(
-  //    map((res: EmployeesResponse) => res.data)
-  //  );
-  //}
-
   work(days: number, id: number): Observable<Employee[]> {
     const apiURL = this.baseUrl + 'Employee/Work';
     

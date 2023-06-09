@@ -27,36 +27,54 @@ export class FetchDataComponent {
 
   get f() { return this.Work.controls; }
   onSubmitWork() {
-
-    const days = this.Work.get('DaysWorked')?.value;
-    console.log(days);
-    this.submitted = true;
-    // stop here if form is invalid
-    if (this.Work.invalid) {
-      return;
+    if (this.Work.valid) {
+      /* write your code here */
+      const days = this.Work.get('DaysWorked')?.value;
+      console.log(days);
+      this.submitted = true;
+      // stop here if form is invalid
+      if (this.Work.invalid) {
+        alert('Cannot work more than 260 days');
+        return;
+      }
+      //True if all the fields are filled
+      if (this.submitted) {
+        this.work(days, this.modalId);
+        this.Work.reset();
+      }
     }
-    //True if all the fields are filled
-    if (this.submitted) {
-
-      this.work(days, this.modalId);
+    else {
+      this.Vacation.reset();
+      alert('Cannot work more than 260 days');
     }
 
   }
 
   get v() { return this.Vacation.controls; }
   onTakeVacation() {
-    const days = this.Vacation.get('VacationDays')?.value;
-    console.log(days);
-    this.submitted = true;
-    // stop here if form is invalid
-    if (this.Vacation.invalid) {
-      return;
-    }
-    //True if all the fields are filled
-    if (this.submitted) {
-      this.takeVacation(days, this.modalId);
-    }
+    if (this.Vacation.valid) {
+      const days = this.Vacation.get('VacationDays')?.value;
 
+      console.log(days);
+      this.submitted = true;
+      // stop here if form is invalid
+      if (this.Vacation.invalid) {
+        this.Vacation.reset();
+        alert('Cannot take more days than you have');
+
+        return;
+      }
+      //True if all the fields are filled
+      if (this.submitted) {
+        this.takeVacation(days, this.modalId);
+      }
+      this.Vacation.reset();
+    }
+    else {
+      this.Vacation.reset();
+      alert('Cannot take more days than you have');
+
+    }
   }
   ngOnInit() {
     //Add User form validations
@@ -75,14 +93,16 @@ export class FetchDataComponent {
 
   prepDialog(id: number) {
     this.modalId = id;
-    
 
+    console.log(this.employees[id].maxWorkDays);
+    
+    
     //this.Work = this.formBuilder.group({
     //  DaysWorked: ['', [Validators.required, Validators.max(this.employees[id].maxWorkDays), Validators.min(0)]],
     //});
 
     //this.Vacation = this.formBuilder.group({
-    //  VacationDays: ['', [Validators.required, Validators.max(this.employees[id].maxVacationDays), Validators.min(0)]],
+    //  //VacationDays: ['', [Validators.required, Validators.max(this.employees[id].vacationDays), Validators.min(0)]],
     //});
   }
 
@@ -90,14 +110,20 @@ export class FetchDataComponent {
 
     this.service.work(days, id).subscribe(
       (data) => { this.employees = data },
-      (error) => { console.log(error); }
+      (error) => {
+        console.log(error);
+        alert('Cannot work more that 260 days');
+      }
     );
   }
 
   public takeVacation(days:number, id: number) {
     this.service.vacation(days, id).subscribe(
       (data) => { this.employees = data },
-      (error) => {console.log(error) }
+      (error) => {
+        console.log(error);
+        alert('Cannot take more than you have');
+      }
     );
   }
 

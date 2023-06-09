@@ -7,4 +7,5 @@ export interface Employee {
   maxVacationDays: number;
   maxWorkDays: number;
   vacationLimit: number;
+  errorMessage: number;
 }
