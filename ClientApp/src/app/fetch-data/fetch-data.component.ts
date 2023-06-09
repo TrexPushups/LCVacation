@@ -17,8 +17,8 @@ export class FetchDataComponent {
   Work!: FormGroup;
   Vacation!: FormGroup;
 
-  WorkForm!: FormControl;
-  VacationForm!: FormControl;
+  DaysWorked!: FormControl;
+  VacationDays!: FormControl;
   submitted = false;
 
   constructor(private formBuilder: FormBuilder, service:EmployeeService) {
@@ -27,11 +27,12 @@ export class FetchDataComponent {
 
   get f() { return this.Work.controls; }
   onSubmitWork() {
-    const days = this.WorkForm.get('DaysWorked')?.value;
+
+    const days = this.Work.get('DaysWorked')?.value;
     console.log(days);
     this.submitted = true;
     // stop here if form is invalid
-    if (this.WorkForm.invalid) {
+    if (this.Work.invalid) {
       return;
     }
     //True if all the fields are filled
@@ -67,13 +68,22 @@ export class FetchDataComponent {
     });
 
     this.Vacation = this.formBuilder.group({
-      VacationDays: ['', [Validators.required, Validators.max(260), Validators.min(0)]],
+      VacationDays: ['', [Validators.required, Validators.max(30), Validators.min(0)]],
     });
     
   }
 
   prepDialog(id: number) {
     this.modalId = id;
+    
+
+    //this.Work = this.formBuilder.group({
+    //  DaysWorked: ['', [Validators.required, Validators.max(this.employees[id].maxWorkDays), Validators.min(0)]],
+    //});
+
+    //this.Vacation = this.formBuilder.group({
+    //  VacationDays: ['', [Validators.required, Validators.max(this.employees[id].maxVacationDays), Validators.min(0)]],
+    //});
   }
 
   public work(days: number, id: number) {
