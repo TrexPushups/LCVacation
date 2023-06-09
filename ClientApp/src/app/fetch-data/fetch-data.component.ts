@@ -95,15 +95,9 @@ export class FetchDataComponent {
     this.modalId = id;
 
     console.log(this.employees[id].maxWorkDays);
-    
-    
-    //this.Work = this.formBuilder.group({
-    //  DaysWorked: ['', [Validators.required, Validators.max(this.employees[id].maxWorkDays), Validators.min(0)]],
-    //});
+    this.Vacation.reset();
+    this.Work.reset();
 
-    //this.Vacation = this.formBuilder.group({
-    //  //VacationDays: ['', [Validators.required, Validators.max(this.employees[id].vacationDays), Validators.min(0)]],
-    //});
   }
 
   public work(days: number, id: number) {
